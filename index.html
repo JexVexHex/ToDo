@@ -19,18 +19,18 @@
         </div>
 
         <div class="filter-section">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="active">Active</button>
-            <button class="filter-btn" data-filter="completed">Completed</button>
+            <button class="filter-btn active" data-filter="all" aria-label="Show all tasks">All</button>
+            <button class="filter-btn" data-filter="active" aria-label="Show active tasks">Active</button>
+            <button class="filter-btn" data-filter="completed" aria-label="Show completed tasks">Completed</button>
         </div>
 
-        <div class="task-list" id="taskList">
+        <div class="task-list" id="taskList" role="list">
             <!-- Tasks will be dynamically added here -->
         </div>
 
         <div class="stats">
-            <span id="taskCount"></span>
-            <button id="clearCompletedBtn" class="clear-completed">Clear Completed</button>
+            <span id="taskCount" aria-live="polite"></span>
+            <button id="clearCompletedBtn" class="clear-completed" aria-label="Clear completed tasks">Clear Completed</button>
         </div>
     </div>
 

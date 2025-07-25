@@ -86,7 +86,7 @@ function renderTasks() {
     
     if (filteredTasks.length === 0) {
         taskList.innerHTML = `
-            <div class="empty-state">
+            <div class="empty-state" role="status">
                 <p>No tasks ${currentFilter === 'all' ? '' : currentFilter}</p>
                 <small>Add some tasks to get started!</small>
             </div>
@@ -95,10 +95,17 @@ function renderTasks() {
     }
     
     taskList.innerHTML = filteredTasks.map(task => `
-        <div class="task-item ${task.completed ? 'completed' : ''}" data-id="${task.id}">
-            <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+        <div class="task-item ${task.completed ? 'completed' : ''}" 
+             data-id="${task.id}" 
+             role="listitem"
+             tabindex="0"
+             aria-label="${task.completed ? 'Completed' : 'Active'} task: ${escapeHtml(task.text)}">
+            <input type="checkbox" 
+                   class="task-checkbox" 
+                   ${task.completed ? 'checked' : ''}
+                   aria-label="${task.completed ? 'Mark as active' : 'Mark as completed'}">
             <span class="task-text">${escapeHtml(task.text)}</span>
-            <button class="delete-btn">Delete</button>
+            <button class="delete-btn" aria-label="Delete task">Delete</button>
         </div>
     `).join('');
     
@@ -131,7 +138,9 @@ function getFilteredTasks() {
 
 function updateTaskCount() {
     const activeTasks = tasks.filter(task => !task.completed).length;
-    taskCount.textContent = `${activeTasks} ${activeTasks === 1 ? 'task' : 'tasks'} left`;
+    const taskCountText = `${activeTasks} ${activeTasks === 1 ? 'task' : 'tasks'} left`;
+    document.getElementById('taskCount').textContent = taskCountText;
+    document.getElementById('taskCount').setAttribute('aria-label', taskCountText);
 }
 
 function saveTasks() {
@@ -195,3 +204,16 @@ if (tasks.length === 0) {
     renderTasks();
     updateTaskCount();
 }
+
+// Add keyboard navigation
+taskList.addEventListener('keydown', (e) => {
+    if (e.target.classList.contains('task-item') && (e.key === 'Enter' || e.key === ' ')) {
+        const checkbox = e.target.querySelector('.task-checkbox');
+        checkbox.checked = !checkbox.checked;
+        checkbox.dispatchEvent(new Event('change'));
+    }
+    else if (e.target.classList.contains('task-item') && e.key === 'Delete') {
+        const deleteBtn = e.target.querySelector('.delete-btn');
+        deleteBtn.click();
+    }
+});

@@ -164,8 +164,12 @@ header p {
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
-    background: #f8f9fa;
-    border-top: 1px solid #eee;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-top: -5px; /* Slight overlap with task-list for visual connection */
+    position: relative;
+    z-index: 1;
 }
 
 .stats span {
