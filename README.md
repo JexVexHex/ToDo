@@ -94,5 +94,5 @@ Open `index.html` in your browser to see the app in action!
 
 
 # Initial Problems
-- "Completed" functionality wasn't implmented.
-- "Task Count" functionality wasn't implmented.
+- "Completed" functionality wasn't initially implemented.
+- "Task Count" functionality wasn't initially implemented.
